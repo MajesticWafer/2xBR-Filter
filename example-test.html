@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xBR Sample</title>
+</head>
+<body>
+<strong id='working'>Processing, be patient..</strong>
+<script type="text/javascript" src="xbr.js"></script>
+<script type="text/javascript">	
+var image = new Image()
+image.src = 'ff4.png'
+image.onload =  function img_loaded()
+{
+var canvas  = document.createElement('canvas')
+document.body.appendChild(canvas)
+var ctx  = canvas.getContext('2d')
+canvas.width  = canvas.width * 8
+canvas.height = canvas.height * 8
+
+// Draw original image onto first canvas.
+ctx.drawImage(image, 0, 0)
+
+// Scaled 4x
+console.time('bench 2x to 4x')
+var result = xBR(ctx2, 0, 0, canvas.width, canvas.height)
+console.timeEnd('bench 2x to 4x')
+ctx.putImageData(result, 0 ,0)
+
+// Scaled 8x
+// console.time('bench 4x to 8x')
+// var result = xBR(ctx3, 0, 0, canvas3.width, canvas3.height)
+// console.timeEnd('bench 4x to 8x')
+// ctx4.putImageData(result, 0 ,0)
+
+document.getElementById('working').style.display = 'none'
+}	
+</script>
+</body>
+</html>
